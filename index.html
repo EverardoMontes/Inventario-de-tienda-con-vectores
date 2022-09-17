@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="inventario.js"></script>
+    <script src="producto.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventario de tienda Montes Viera José Everardo</title>
+</head>
+<body>
+    <h1>LA PODEROSA TIENDITA DEL SEÑOR DEL CENTRO</h1>
+    <div>
+        <input type="text" id="codigo" placeholder="Introduce su código">
+        <br>
+        <input type="text" id="nombre" placeholder="Introduce su nombre">
+        <br>
+        <input type="number" id="cantidad" placeholder="Introduce su cantidad">
+        <br>
+        <input type="number" id="costo" placeholder="Introduce su costo">
+        <br>
+        <button id="btnAdd">Añadir</button>
+        <button id="btnEliminar">eliminar</button>
+        <button id="btnListado">listado</button>
+        <button id="btnListadoInv">listado inverso</button>
+        <button id="btnBuscar">buscar</button>
+        <div id="cosas"></div>
+    </div>
+    <div>
+        <h2>Operaciones realizadas:</h2>
+        <div id="info"></div>
+    </div>
+    <script>
+        const inventario = new Inventario;
+        //boton añadir
+        document.getElementById("btnAdd").addEventListener("click",agregar=>{
+            let codigo = document.getElementById("codigo").value;
+            let nombre = document.getElementById("nombre").value;
+            let cantidad = document.getElementById("cantidad").value;
+            let costo = document.getElementById("costo").value;
+            let nuevoProducto = new Producto(codigo,nombre,cantidad,costo);
+            inventario.agregar(nuevoProducto);
+            document.getElementById("info").innerHTML+= ("se añadió un registro con el código " +codigo + "<br>")
+            document.getElementById("codigo").value = "";
+            document.getElementById("nombre").value = "";
+            document.getElementById("cantidad").value = "";
+            document.getElementById("costo").value = "";
+        });
+        //boton de listarme lo que hay
+        document.getElementById("btnListado").addEventListener("click",leer=>{
+            document.getElementById("cosas").innerHTML = "";
+            document.getElementById("cosas").innerHTML = inventario.listado();
+            document.getElementById("info").innerHTML+= ("se han consultado los registros <br>");
+        });
+        //boton de listado inverso
+        document.getElementById("btnListadoInv").addEventListener("click", leerR=>{
+            document.getElementById("cosas").innerHTML = "";
+            document.getElementById("cosas").innerHTML = inventario.listadoInverso();
+            document.getElementById("info").innerHTML+= ("se han consultado los registros de forma inversa <br>");
+        })
+        //boton de eliminar
+        document.getElementById("btnEliminar").addEventListener("click", eliminar=>{
+            let codigo = document.getElementById("codigo").value;
+            inventario.eliminar(codigo)
+            document.getElementById("info").innerHTML += "Se ha eliminado el registro seleccionado <br>"
+        })
+        //boton buscar
+        document.getElementById("btnBuscar").addEventListener("click", buscar=>{
+            document.getElementById("info").innerHTML+= ("se ha buscado un registro <br>");
+            let codigo = document.getElementById("codigo").value;
+            document.getElementById("cosas").innerHTML = ""
+            document.getElementById("cosas").innerHTML = inventario.buscar(codigo);
+            
+           
+            //console.log(codigo);
+        })
+        console.log("Montes Viera José Everardo")
+    </script>
+    
+</body>
+</html>
