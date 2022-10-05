@@ -4,8 +4,32 @@ class Inventario{
         this.productos = [];
     }
     agregar(nuevoProducto){
-        this.productos.push(nuevoProducto);
-        //console.log("pepe");
+        //nuevo método para añadir un producto con busqueda binaria
+        let codigoProducto = nuevoProducto.codigo;
+        let inicioArray = Number(0);
+        let finalArray = Number(this.productos.length)-1;
+        let mitadArray = Math.floor(inicioArray+finalArray)/2;
+        if(codigoProducto===this.productos[mitadArray]){
+            return null;
+        }
+        while(this.productos[mitadArray] !== codigoProducto){
+            // Aquí el ciclo es infinito pues el array está vacío y nunca será igual a la cantidad
+            console.log("pepe");
+            if(codigoProducto<this.productos[mitadArray]){  
+                 finalArray = mitadArray - 1;
+            }
+            else{
+                inicioArray = mitadArray + 1;
+            }
+            mitadArray = Math.floor(inicioArray+finalArray)/2; 
+        }
+        for(let i=this.productos.length-1;i<=mitadArray+1;i--){
+            this.productos[i]=this.productos[i-1];       
+        }
+        this.productos[mitadArray]= nuevoProducto;
+        
+        /*Anterior método de agregar un producto al array de productos: this.productos.push(nuevoProducto);
+        console.log("pepe");*/
     }
     info(){
         return codigo, nombre, cantidad, costo;
@@ -33,6 +57,7 @@ class Inventario{
         }
         return lista;
     }
+    
     listadoInverso(){
         let lista =""
         for(let i=this.productos.length-1;i>=0;i--){
@@ -51,7 +76,7 @@ class Inventario{
                     return lista;           
                 }
                 else{
-                    return "no se ha encontrado nada";
+                    return null;
                 }
             }   
         }   
@@ -60,6 +85,9 @@ class Inventario{
         for(let i=0;i<this.productos.length;i++){
             if(codigo == this.productos[i].getCodigo()){
                 return i;
+            }
+            else{
+                return null;
             }
         } 
     }
