@@ -5,14 +5,14 @@ class Inventario{
     }
     agregar(nuevoProducto){
         //nuevo método para añadir un producto con busqueda binaria
-        let codigoProducto = nuevoProducto.codigo;
+       /* let codigoProducto = nuevoProducto.codigo;
         let inicioArray = Number(0);
         let finalArray = Number(this.productos.length)-1;
         let mitadArray = Math.floor(inicioArray+finalArray)/2;
         if(codigoProducto===this.productos[mitadArray]){
             return null;
         }
-        while(this.productos[mitadArray] !== codigoProducto){
+        while(inicioArray<=finalArray){
             // Aquí el ciclo es infinito pues el array está vacío y nunca será igual a la cantidad
             console.log("pepe");
             if(codigoProducto<this.productos[mitadArray]){  
@@ -26,10 +26,11 @@ class Inventario{
         for(let i=this.productos.length-1;i<=mitadArray+1;i--){
             this.productos[i]=this.productos[i-1];       
         }
-        this.productos[mitadArray]= nuevoProducto;
+        this.productos[mitadArray]= nuevoProducto;*/
         
-        /*Anterior método de agregar un producto al array de productos: this.productos.push(nuevoProducto);
-        console.log("pepe");*/
+        //Anterior método de agregar un producto al array de productos: 
+        this.productos.push(nuevoProducto);
+        console.log("pepe");
     }
     info(){
         return codigo, nombre, cantidad, costo;
@@ -66,8 +67,32 @@ class Inventario{
         return lista;
     }
     buscar(codigo){
-        //let id = 0;
-        let lista = ""
+        let start = 0;
+        let end = Number(this.productos.length)-1;
+        let middle = Math.floor((this.productos.length/2));
+        while(true){
+            if(this.productos[middle].codigo ==codigo){
+                return this.productos[middle].datos();
+            }
+            if(this.productos[middle].codigo<codigo){
+                if(this.productos[end].codigo==codigo){
+                    return this.productos[end].datos();
+                }
+                end = middle;
+                middle = Math.ceil((start+end)/2);
+            }
+            if(this.productos[middle].codigo>codigo){
+                if(this.productos[start].codigo==codigo){
+                    return this.productos[start].datos();
+                }
+                start = middle;
+                middle = Math.ceil((start+end)/2);
+            }
+            if(middle == start || middle == end){
+                return null;
+            }
+        }
+       /* let lista = ""
         if(this.productos!=null){
             for(let i=0;i<=this.productos.length;i++){
                 if(this.productos[i].codigo==codigo){
@@ -79,7 +104,7 @@ class Inventario{
                     return null;
                 }
             }   
-        }   
+        }   */
     }
     getPosicion(codigo){
         for(let i=0;i<this.productos.length;i++){
