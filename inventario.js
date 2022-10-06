@@ -30,17 +30,28 @@ class Inventario{
         
         //Anterior método de agregar un producto al array de productos: 
         this.productos.push(nuevoProducto);
-        console.log("pepe");
+        //console.log("pepe");//
     }
     info(){
         return codigo, nombre, cantidad, costo;
     }
     eliminar(codigo){
-        let posicion = this.getPosicion(codigo);
+        let posicion = this.busquedaBinaria(codigo);
+        if(posicion == null){
+            return null;
+        }
+        let auxiliar = this.productos[posicion];
+        for(let i= posicion+1;i<this.productos.length;i++){
+            this.productos[i-1] = this.productos[i];
+        }
+        this.productos[this.productos.length-1]= auxiliar;
+        this.productos.pop();
+        
+        /* let posicion = this.getPosicion(codigo);
         let siguientePosicion = posicion+1;
         if(posicion!=null){
             while(siguientePosicion<this.productos.length){
-                console.log("pepe");
+               // console.log("pepe");
                 let auxiliar = this.productos[posicion];
                 this.productos[posicion] = this.productos[siguientePosicion];
                 this.productos[siguientePosicion] = auxiliar;
@@ -49,7 +60,7 @@ class Inventario{
             }
             return this.productos.pop();
         }
-        return null;
+        return null; */
     }
     listado(){
         let lista = ""
@@ -66,8 +77,37 @@ class Inventario{
         }
         return lista;
     }
-    buscar(codigo){
+    busquedaBinaria(codigo){
         let start = 0;
+        let end = Number(this.productos.length)-1;
+        let middle = Math.round((start+end/2));
+        while(start<end){
+            if(this.productos[middle].codigo ==codigo){
+                return middle;
+            }
+            if(this.productos[middle].codigo<codigo){
+                if(this.productos[end].codigo==codigo){
+                    return end;
+                }
+                start = middle;
+                middle = Math.ceil((start+end)/2);
+                
+            }
+            if(this.productos[middle].codigo>codigo){
+                if(this.productos[start].codigo==codigo){
+                    return start;
+                }
+                end = middle;
+                middle = Math.ceil((start+end)/2);
+            }
+            if(middle == start || middle == end){
+                return null;
+            }
+        }
+    }
+    buscar(codigo){
+        return this.productos[this.busquedaBinaria(codigo)].datos();
+        /* let start = 0;
         let end = Number(this.productos.length)-1;
         let middle = Math.round((start+end/2));
         while(start<end){
@@ -92,9 +132,7 @@ class Inventario{
             if(middle == start || middle == end){
                 return null;
             }
-        }
-        console.log(middle);
-        console.log(codigo);
+        } */
        /* let lista = ""
         if(this.productos!=null){
             for(let i=0;i<=this.productos.length;i++){
