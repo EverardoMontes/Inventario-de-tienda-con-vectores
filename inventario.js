@@ -69,8 +69,8 @@ class Inventario{
     buscar(codigo){
         let start = 0;
         let end = Number(this.productos.length)-1;
-        let middle = Math.floor((this.productos.length/2));
-        while(true){
+        let middle = Math.round((start+end/2));
+        while(start<end){
             if(this.productos[middle].codigo ==codigo){
                 return this.productos[middle].datos();
             }
@@ -78,20 +78,23 @@ class Inventario{
                 if(this.productos[end].codigo==codigo){
                     return this.productos[end].datos();
                 }
-                end = middle;
+                start = middle;
                 middle = Math.ceil((start+end)/2);
+                
             }
             if(this.productos[middle].codigo>codigo){
                 if(this.productos[start].codigo==codigo){
                     return this.productos[start].datos();
                 }
-                start = middle;
+                end = middle;
                 middle = Math.ceil((start+end)/2);
             }
             if(middle == start || middle == end){
                 return null;
             }
         }
+        console.log(middle);
+        console.log(codigo);
        /* let lista = ""
         if(this.productos!=null){
             for(let i=0;i<=this.productos.length;i++){
