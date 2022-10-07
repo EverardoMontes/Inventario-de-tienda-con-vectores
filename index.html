@@ -24,17 +24,25 @@
         <button id="btnListado">listado</button>
         <button id="btnListadoInv">listado inverso</button>
         <button id="btnBuscar">buscar</button>
-        <div id="cosas"></div>
+        <div id="cosas">
+            <p>
+
+            </p>
+        </div>
     </div>
     <div>
         <h2>Operaciones realizadas:</h2>
-        <div id="info"></div>
+        <div >
+            <p id="info">
+
+            </p>
+        </div>
     </div>
     <script>
         const inventario = new Inventario;
         //boton añadir
         document.getElementById("btnAdd").addEventListener("click",agregar=>{
-            let codigo = document.getElementById("codigo").value;
+            let codigo = Number(document.getElementById("codigo").value);
             let nombre = document.getElementById("nombre").value;
             let cantidad = document.getElementById("cantidad").value;
             let costo = document.getElementById("costo").value;

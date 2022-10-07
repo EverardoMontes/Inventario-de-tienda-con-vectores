@@ -15,28 +15,31 @@ class Inventario{
             console.log("ProductoCodigo Mayor al final");
             return true;
         }
-        for(let i=0;i<=this.productos.length-1;i++){
-            if(nuevoProducto.codigo<this.productos[0].codigo){
-                console.log("condicional de menor que el primero")
-                for(let j=this.productos.length; j<=i;j--){
-                    this.productos[j]=this.productos[j-1];
-                }
-                this.productos.push(auxiliar);
-                this.productos[0]=nuevoProducto;
-                return true;
+        if(nuevoProducto.codigo<this.productos[0].codigo){
+            console.log("condicional de menor que el primero");
+            for(let j=this.productos.length;j>0;j--){
+                console.log("for de condicional menor que primero");
+                this.productos[j]=this.productos[j-1];
+                
             }
-            else{
-                if(nuevoProducto.codigo > this.productos[i].codigo && nuevoProducto.codigo <= this.productos[i+1].codigo){
-                    console.log("lo que quiero");
-                    let aux=(this.productos[this.productos.length-1]);
-                    for(let j=this.productos.length-1;j<i;j--){
-                        console.log("ciclo j numero " +j);
-                        this.productos[j]=this.productos[j+1];
-                    }
-                    console.log("salió al push de lo que quiero");
-                    this.productos[i+1]= nuevoProducto;
-                    this.productos.push(aux);
-                    return true;
+            this.productos[0]=nuevoProducto;
+            console.log(this.productos);
+            return true;
+        }
+        else{
+            for(let i=0;i<this.productos.length;i++){
+                console.log("for principal");
+                    if(nuevoProducto.codigo > this.productos[i].codigo && nuevoProducto.codigo <= this.productos[i+1].codigo){
+                        console.log("lo que quiero");
+                        let aux=(this.productos[this.productos.length-1]);
+                        for(let j=Number(this.productos.length);j>=i+1;j--){
+                            console.log("ciclo j numero " +j);
+                            this.productos[j]=this.productos[j-1];
+                        }
+                        this.productos[i+1]= nuevoProducto;
+                        console.log("salió al push de lo que quiero");
+                        return true;
+                        
                 }
             }
         }
