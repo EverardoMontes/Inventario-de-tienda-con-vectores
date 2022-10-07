@@ -6,49 +6,41 @@ class Inventario{
     agregar(nuevoProducto){
         //nuevo método para añadir un producto 
         let auxiliar = this.productos[this.productos.length-1];
+        console.log(auxiliar);
         if(this.productos.length==0){
             this.productos.push(nuevoProducto);
             return true;
         }
-        for(let i=0;i<=this.productos.length-1;i++){
-
-            if(nuevoProducto.codigo == this.productos[i].codigo){
-                return false;
-            }
+        for(let i=0;i<=this.productos.length;i++){
             if(nuevoProducto.codigo<this.productos[0].codigo){
-                this.productos.push(auxiliar);
-                for(let j=this.productos.length-1; j<0;j--){
+                for(let j=this.productos.length; j<=i;j--){
                     this.productos[j]=this.productos[j-1];
                 }
+                this.productos.push(auxiliar);
                 this.productos[0]=nuevoProducto;
                 return true;
             }
             if(nuevoProducto.codigo>this.productos[this.productos.length-1].codigo){
                 this.productos.push(nuevoProducto);
-                return true;
-            }
-            if(this.productos[i+1] == undefined){
-                this.productos.push(nuevoProducto);
-                return true;
-        }
-        if(nuevoProducto.codigo > this.productos[i].codigo){
-            if(nuevoProducto.codigo < this.productos[i+1].codigo){
-                for(let j=this.productos.length-1;j<=i;j--){
-                    this.productos[j]=this.productos[j-1];
-                }
-                console.log(auxiliar);
-                this.productos.push(auxiliar);
-                this.productos[i+1]= nuevoProducto;
+                console.log("ProductoCodigo Mayor al final");
                 return true;
             }
             else{
-                this.productos.push(nuevoProducto);
-                return true;
-        } 
-
-    }
-    
+                if(nuevoProducto.codigo > this.productos[i].codigo && nuevoProducto.codigo < this.productos[i+1].codigo){
+                    let aux=(this.productos[this.productos.length-1]);
+                    for(let j=0;j>=i;j++){
+                        this.productos[j]=this.productos[j+1];
+                    }
+                    this.productos[i]= nuevoProducto;
+                    this.productos.push(aux);
+                    return true;
+                }
             }
+           
+                
+        }
+    
+            
         /*let codigoProducto = nuevoProducto.codigo;
         let inicioArray = Number(0);
         let finalArray = Number(this.productos.length)-1;
