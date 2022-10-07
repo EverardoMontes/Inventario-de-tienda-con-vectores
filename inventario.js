@@ -6,13 +6,18 @@ class Inventario{
     agregar(nuevoProducto){
         //nuevo método para añadir un producto 
         let auxiliar = this.productos[this.productos.length-1];
-        console.log(auxiliar);
         if(this.productos.length==0){
             this.productos.push(nuevoProducto);
             return true;
         }
-        for(let i=0;i<=this.productos.length;i++){
+        if(nuevoProducto.codigo>this.productos[this.productos.length-1].codigo){
+            this.productos.push(nuevoProducto);
+            console.log("ProductoCodigo Mayor al final");
+            return true;
+        }
+        for(let i=0;i<=this.productos.length-1;i++){
             if(nuevoProducto.codigo<this.productos[0].codigo){
+                console.log("condicional de menor que el primero")
                 for(let j=this.productos.length; j<=i;j--){
                     this.productos[j]=this.productos[j-1];
                 }
@@ -20,24 +25,20 @@ class Inventario{
                 this.productos[0]=nuevoProducto;
                 return true;
             }
-            if(nuevoProducto.codigo>this.productos[this.productos.length-1].codigo){
-                this.productos.push(nuevoProducto);
-                console.log("ProductoCodigo Mayor al final");
-                return true;
-            }
             else{
-                if(nuevoProducto.codigo > this.productos[i].codigo && nuevoProducto.codigo < this.productos[i+1].codigo){
+                if(nuevoProducto.codigo > this.productos[i].codigo && nuevoProducto.codigo <= this.productos[i+1].codigo){
+                    console.log("lo que quiero");
                     let aux=(this.productos[this.productos.length-1]);
-                    for(let j=0;j>=i;j++){
+                    for(let j=this.productos.length-1;j<i;j--){
+                        console.log("ciclo j numero " +j);
                         this.productos[j]=this.productos[j+1];
                     }
-                    this.productos[i]= nuevoProducto;
+                    console.log("salió al push de lo que quiero");
+                    this.productos[i+1]= nuevoProducto;
                     this.productos.push(aux);
                     return true;
                 }
             }
-           
-                
         }
     
             
